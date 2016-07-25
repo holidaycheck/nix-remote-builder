@@ -1,0 +1,37 @@
+# nix-remote-build-env
+
+This little script configures a docker container as nix remote builder for nix on your OSX machine. For this to work you need to have [docker-for-mac](https://docs.docker.com/docker-for-mac/) installed.
+
+## Installation
+
+```
+$ ./init.sh
+```
+
+This will:
+
+* fetch and run the required docker image
+* create an entry in your ssh config file in `~/.ssh/config` 
+* install an ssh key to ~/.ssh/docker_rsa`
+* create a keypair for nix package signing
+* install some config files
+
+## Usage
+
+During the installation the docker container is started. If you want to start it at some later point you can do that like this:
+
+```
+$ docker run --restart always --name nix-docker -d -p 3022:22 lnl7/nix:ssh
+```
+
+With the docker container running you only need to tell nix to use it:
+
+```
+$ source ~/.nix/remote-systems.conf
+```
+
+You can then tell nix to build something for `linux` and it will automatically build the derivation inside the docker container:
+
+```
+$ nix-build -A nano --argstr system x86_64-linux
+```

@@ -1,0 +1,5 @@
+Host nix-docker
+  User root
+  HostName localhost
+  Port 3022
+  IdentityFile __KEY__
