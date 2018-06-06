@@ -27,7 +27,7 @@ $ docker run --restart always --name nix-docker -d -p 3022:22 lnl7/nix:ssh
 With the docker container running you only need to tell nix to use it:
 
 ```
-$ source ~/.nix/remote-systems.conf
+$ source ~/.nix/remote-build-env
 ```
 
 You can then tell nix to build something for `linux` and it will automatically build the derivation inside the docker container:
